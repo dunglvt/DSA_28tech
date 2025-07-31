@@ -1,0 +1,60 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int main()
+{
+    string s;
+    cin >> s;
+
+    string res, tmp;
+    vector<string> v;
+    for (char x : s)
+    {
+        if (isdigit(x))
+        {
+            tmp += x;
+        }
+        else
+        {
+            if (tmp.size() != 0)
+            {
+                v.push_back(tmp);
+                tmp.clear();
+            }
+        }
+    }
+
+    if (!tmp.empty())
+    {
+        v.push_back(tmp);
+    }
+
+    for (string &x : v)
+    {
+        int count = 0;
+        while (count < x.size() && x[count] == '0')
+        {
+            ++count;
+        }
+
+        if (count == x.size())
+        {
+            x = "0";
+        }
+        else
+        {
+            x = x.substr(count);
+        }
+    }
+
+    sort(v.begin(), v.end(), [](const string &x, const string &y)
+         {
+        if(x.size() == y.size()){
+            return x > y;
+        }
+        return x.size() > y.size(); });
+
+    cout << *v.begin();
+    return 0;
+}
